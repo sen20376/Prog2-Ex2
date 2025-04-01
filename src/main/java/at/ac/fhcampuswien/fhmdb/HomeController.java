@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class HomeController implements Initializable {
@@ -153,4 +154,35 @@ public class HomeController implements Initializable {
     public void sortBtnClicked(ActionEvent actionEvent) {
         sortMovies();
     }
+
+    public String getMostPopularActor(List<Movie> movies) {
+        return movies.stream()
+                .flatMap(movie -> movie.getMainCast().stream())
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse("Unknown");
+    }
+
+    public String getLongestMovieTitle(List<Movie> movies) {
+        return movies.stream()
+                .map(movie -> movie.getTitle())
+                .max(Comparator.comparingInt(String::length))
+                .map(title -> title + " (" + title.length() + " characters)")
+                .orElse("No movies available");
+    }
+
+    public long countMoviesFrom(List<Movie> movies, String director) {
+        return movies.stream()
+                .filter(movie -> movie.getDirector().equalsIgnoreCase(director))
+                .count();
+    }
+
+    public List<Movie> getMoviesBetweenYears(List<Movie> movies, int startYear, int endYear) {
+        return movies.stream()
+                .filter(movie -> movie.getReleaseYear() >= startYear && movie.getReleaseYear() <= endYear)
+                .toList();
+    }
 }
+
