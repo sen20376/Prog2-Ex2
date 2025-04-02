@@ -3,7 +3,6 @@ package at.ac.fhcampuswien.fhmdb;
 import at.ac.fhcampuswien.fhmdb.models.Genre;
 import at.ac.fhcampuswien.fhmdb.models.Movie;
 import at.ac.fhcampuswien.fhmdb.models.SortedState;
-import at.ac.fhcampuswien.fhmdb.ui.MovieService;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.application.Platform;
 import javafx.scene.control.TextField;
