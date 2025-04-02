@@ -3,6 +3,7 @@ package at.ac.fhcampuswien.fhmdb;
 import at.ac.fhcampuswien.fhmdb.models.Genre;
 import at.ac.fhcampuswien.fhmdb.models.Movie;
 import at.ac.fhcampuswien.fhmdb.models.SortedState;
+import at.ac.fhcampuswien.fhmdb.ui.MovieService;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.application.Platform;
 import javafx.scene.control.TextField;
@@ -27,6 +28,7 @@ class HomeControllerTest {
     }
 
     private HomeController homeController;
+    private MovieService movieService;
 
     // Hilfsmethode, um ein Movie-Objekt zu erzeugen und alle Felder zu setzen
     private Movie createMovie(String title, String description, List<Genre> genres,
@@ -86,6 +88,7 @@ class HomeControllerTest {
     @BeforeEach
     void init() {
         homeController = new HomeController();
+        movieService = new MovieService();
         // Da in Unit-Tests keine FXML-Injektion erfolgt, initialisieren wir die UI-Felder manuell:
         homeController.searchField = new TextField();
         homeController.genreComboBox = new JFXComboBox<>();
@@ -225,5 +228,57 @@ class HomeControllerTest {
                 .toList();
 
         assertEquals(expectedTitles, actualTitles);
+    }
+
+    //Neu TEst zu den 4 neuen funktionen mit streams sind das hier die test
+    @Test
+    void getMostPopularActor_returnsMostFrequentActor() {
+        List<Movie> movies = Arrays.asList(
+                createMovie("Movie 1", "", Collections.emptyList(), Arrays.asList("Actor A", "Actor B"), "Director X", 2000, 7.0),
+                createMovie("Movie 2", "", Collections.emptyList(), Arrays.asList("Actor A", "Actor C"), "Director Y", 2001, 8.0),
+                createMovie("Movie 3", "", Collections.emptyList(), Arrays.asList("Actor B", "Actor A"), "Director Z", 2002, 6.5)
+        );
+
+        String result = movieService.getMostPopularActor(movies);
+        assertEquals("Actor A", result);
+    }
+
+    @Test
+    void getLongestMovieTitle_returnsCorrectTitleWithCharacterCount() {
+        List<Movie> movies = Arrays.asList(
+                createMovie("Short", "", Collections.emptyList(), Collections.emptyList(), "Director", 2000, 7.0),
+                createMovie("This Is A Really Long Movie Title", "", Collections.emptyList(), Collections.emptyList(), "Director", 2001, 7.5),
+                createMovie("Medium Title", "", Collections.emptyList(), Collections.emptyList(), "Director", 2002, 6.5)
+        );
+
+        String result = movieService.getLongestMovieTitle(movies);
+        assertEquals("This Is A Really Long Movie Title (33 characters)", result);
+    }
+
+    @Test
+    void countMoviesFrom_returnsCorrectCountForGivenDirector() {
+        List<Movie> movies = Arrays.asList(
+                createMovie("Movie 1", "", Collections.emptyList(), Collections.emptyList(), "Nolan", 2000, 7.0),
+                createMovie("Movie 2", "", Collections.emptyList(), Collections.emptyList(), "Spielberg", 2001, 7.5),
+                createMovie("Movie 3", "", Collections.emptyList(), Collections.emptyList(), "nolan", 2002, 6.5)
+        );
+
+        long result = movieService.countMoviesFrom(movies, "Nolan");
+        assertEquals(2, result); // case-insensitive Vergleich
+    }
+
+    @Test
+    void getMoviesBetweenYears_returnsMoviesInGivenRange() {
+        List<Movie> movies = Arrays.asList(
+                createMovie("Old Movie", "", Collections.emptyList(), Collections.emptyList(), "Director", 1995, 7.0),
+                createMovie("Movie 2000", "", Collections.emptyList(), Collections.emptyList(), "Director", 2000, 7.5),
+                createMovie("Movie 2005", "", Collections.emptyList(), Collections.emptyList(), "Director", 2005, 8.0),
+                createMovie("Recent Movie", "", Collections.emptyList(), Collections.emptyList(), "Director", 2015, 6.5)
+        );
+
+        List<Movie> result = movieService.getMoviesBetweenYears(movies, 2000, 2005);
+        List<String> resultTitles = result.stream().map(Movie::getTitle).toList();
+
+        assertEquals(Arrays.asList("Movie 2000", "Movie 2005"), resultTitles);
     }
 }
