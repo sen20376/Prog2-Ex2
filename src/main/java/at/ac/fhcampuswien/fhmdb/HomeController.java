@@ -117,12 +117,19 @@ public class HomeController implements Initializable {
 
     // Filtert anhand des Suchstrings (Titel oder Beschreibung)
     public List<Movie> findByQuery(List<Movie> movies, String query) {
+        if (movies == null) {
+            throw new IllegalArgumentException("Movie list must not be null");
+        }
+
         if (query == null || query.isEmpty()) {
             return movies;
         }
+
+        String lowerQuery = query.toLowerCase();
+
         return movies.stream()
-                .filter(movie -> movie.getTitle().toLowerCase().contains(query)
-                        || movie.getDescription().toLowerCase().contains(query))
+                .filter(movie -> movie.getTitle().toLowerCase().contains(lowerQuery)
+                        || movie.getDescription().toLowerCase().contains(lowerQuery))
                 .collect(Collectors.toList());
     }
 

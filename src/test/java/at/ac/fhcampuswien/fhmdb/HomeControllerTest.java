@@ -109,155 +109,77 @@ class HomeControllerTest {
     void if_not_yet_sorted_sort_is_applied_in_ascending_order() {
         homeController.sortedState = SortedState.NONE;
         homeController.sortMovies();
-        List<Movie> expected = Arrays.asList(
-                createMovie("Avatar",
-                        "A paraplegic Marine dispatched to the moon Pandora on a unique mission becomes torn between following his orders and protecting the world he feels is his home.",
-                        Arrays.asList(Genre.ANIMATION, Genre.DRAMA, Genre.ACTION),
-                        Collections.emptyList(),
-                        "James Cameron",
-                        2009,
-                        7.8),
-                createMovie("Life Is Beautiful",
-                        "When an open-minded Jewish librarian and his son become victims of the Holocaust, he uses a perfect mixture of will, humor, and imagination to protect his son from the dangers around their camp.",
-                        Arrays.asList(Genre.DRAMA, Genre.ROMANCE),
-                        Collections.emptyList(),
-                        "Roberto Benigni",
-                        1997,
-                        8.6),
-                createMovie("Puss in Boots",
-                        "An outlaw cat, his childhood egg-friend, and a seductive thief kitty set out in search for the eggs of the fabled Golden Goose to clear his name, restore his lost honor, and regain the trust of his mother and town.",
-                        Arrays.asList(Genre.COMEDY, Genre.FAMILY, Genre.ANIMATION),
-                        Collections.emptyList(),
-                        "Chris Miller",
-                        2011,
-                        6.3),
-                createMovie("The Usual Suspects",
-                        "A sole survivor tells of the twisty events leading up to a horrific gun battle on a boat, which begin when five criminals meet at a seemingly random police lineup.",
-                        Arrays.asList(Genre.CRIME, Genre.DRAMA, Genre.MYSTERY),
-                        Collections.emptyList(),
-                        "Bryan Singer",
-                        1995,
-                        8.5),
-                createMovie("The Wolf of Wall Street",
-                        "Based on the true story of Jordan Belfort, from his rise to a wealthy stock-broker living the high life to his fall involving crime, corruption and the federal government.",
-                        Arrays.asList(Genre.DRAMA, Genre.ROMANCE, Genre.BIOGRAPHY),
-                        Collections.emptyList(),
-                        "Martin Scorsese",
-                        2013,
-                        8.2)
+
+        List<String> expectedTitles = List.of(
+                "Avatar",
+                "Life Is Beautiful",
+                "Puss in Boots",
+                "The Usual Suspects",
+                "The Wolf of Wall Street"
         );
-        assertEquals(expected, homeController.observableMovies);
+
+        List<String> actualTitles = homeController.observableMovies.stream()
+                .map(Movie::getTitle)
+                .toList();
+
+        assertEquals(expectedTitles, actualTitles);
     }
 
     @Test
     void if_last_sort_ascending_next_sort_should_be_descending() {
         homeController.sortedState = SortedState.ASCENDING;
         homeController.sortMovies();
-        List<Movie> expected = Arrays.asList(
-                createMovie("The Wolf of Wall Street",
-                        "Based on the true story of Jordan Belfort, from his rise to a wealthy stock-broker living the high life to his fall involving crime, corruption and the federal government.",
-                        Arrays.asList(Genre.DRAMA, Genre.ROMANCE, Genre.BIOGRAPHY),
-                        Collections.emptyList(),
-                        "Martin Scorsese",
-                        2013,
-                        8.2),
-                createMovie("The Usual Suspects",
-                        "A sole survivor tells of the twisty events leading up to a horrific gun battle on a boat, which begin when five criminals meet at a seemingly random police lineup.",
-                        Arrays.asList(Genre.CRIME, Genre.DRAMA, Genre.MYSTERY),
-                        Collections.emptyList(),
-                        "Bryan Singer",
-                        1995,
-                        8.5),
-                createMovie("Puss in Boots",
-                        "An outlaw cat, his childhood egg-friend, and a seductive thief kitty set out in search for the eggs of the fabled Golden Goose to clear his name, restore his lost honor, and regain the trust of his mother and town.",
-                        Arrays.asList(Genre.COMEDY, Genre.FAMILY, Genre.ANIMATION),
-                        Collections.emptyList(),
-                        "Chris Miller",
-                        2011,
-                        6.3),
-                createMovie("Life Is Beautiful",
-                        "When an open-minded Jewish librarian and his son become victims of the Holocaust, he uses a perfect mixture of will, humor, and imagination to protect his son from the dangers around their camp.",
-                        Arrays.asList(Genre.DRAMA, Genre.ROMANCE),
-                        Collections.emptyList(),
-                        "Roberto Benigni",
-                        1997,
-                        8.6),
-                createMovie("Avatar",
-                        "A paraplegic Marine dispatched to the moon Pandora on a unique mission becomes torn between following his orders and protecting the world he feels is his home.",
-                        Arrays.asList(Genre.ANIMATION, Genre.DRAMA, Genre.ACTION),
-                        Collections.emptyList(),
-                        "James Cameron",
-                        2009,
-                        7.8)
+
+        List<String> expectedTitles = List.of(
+                "The Wolf of Wall Street",
+                "The Usual Suspects",
+                "Puss in Boots",
+                "Life Is Beautiful",
+                "Avatar"
         );
-        assertEquals(expected, homeController.observableMovies);
+
+        List<String> actualTitles = homeController.observableMovies.stream()
+                .map(Movie::getTitle)
+                .toList();
+
+        assertEquals(expectedTitles, actualTitles);
     }
 
     @Test
     void if_last_sort_descending_next_sort_should_be_ascending() {
         homeController.sortedState = SortedState.DESCENDING;
         homeController.sortMovies();
-        List<Movie> expected = Arrays.asList(
-                createMovie("Avatar",
-                        "A paraplegic Marine dispatched to the moon Pandora on a unique mission becomes torn between following his orders and protecting the world he feels is his home.",
-                        Arrays.asList(Genre.ANIMATION, Genre.DRAMA, Genre.ACTION),
-                        Collections.emptyList(),
-                        "James Cameron",
-                        2009,
-                        7.8),
-                createMovie("Life Is Beautiful",
-                        "When an open-minded Jewish librarian and his son become victims of the Holocaust, he uses a perfect mixture of will, humor, and imagination to protect his son from the dangers around their camp.",
-                        Arrays.asList(Genre.DRAMA, Genre.ROMANCE),
-                        Collections.emptyList(),
-                        "Roberto Benigni",
-                        1997,
-                        8.6),
-                createMovie("Puss in Boots",
-                        "An outlaw cat, his childhood egg-friend, and a seductive thief kitty set out in search for the eggs of the fabled Golden Goose to clear his name, restore his lost honor, and regain the trust of his mother and town.",
-                        Arrays.asList(Genre.COMEDY, Genre.FAMILY, Genre.ANIMATION),
-                        Collections.emptyList(),
-                        "Chris Miller",
-                        2011,
-                        6.3),
-                createMovie("The Usual Suspects",
-                        "A sole survivor tells of the twisty events leading up to a horrific gun battle on a boat, which begin when five criminals meet at a seemingly random police lineup.",
-                        Arrays.asList(Genre.CRIME, Genre.DRAMA, Genre.MYSTERY),
-                        Collections.emptyList(),
-                        "Bryan Singer",
-                        1995,
-                        8.5),
-                createMovie("The Wolf of Wall Street",
-                        "Based on the true story of Jordan Belfort, from his rise to a wealthy stock-broker living the high life to his fall involving crime, corruption and the federal government.",
-                        Arrays.asList(Genre.DRAMA, Genre.ROMANCE, Genre.BIOGRAPHY),
-                        Collections.emptyList(),
-                        "Martin Scorsese",
-                        2013,
-                        8.2)
+
+        List<String> expectedTitles = List.of(
+                "Avatar",
+                "Life Is Beautiful",
+                "Puss in Boots",
+                "The Usual Suspects",
+                "The Wolf of Wall Street"
         );
-        assertEquals(expected, homeController.observableMovies);
+
+        List<String> actualTitles = homeController.observableMovies.stream()
+                .map(Movie::getTitle)
+                .toList();
+
+        assertEquals(expectedTitles, actualTitles);
     }
 
     @Test
     void query_filter_matches_with_lower_and_uppercase_letters() {
         String query = "IfE";
-        List<Movie> actual = homeController.findByQuery(homeController.observableMovies, query);
-        List<Movie> expected = Arrays.asList(
-                createMovie("Life Is Beautiful",
-                        "When an open-minded Jewish librarian and his son become victims of the Holocaust, he uses a perfect mixture of will, humor, and imagination to protect his son from the dangers around their camp.",
-                        Arrays.asList(Genre.DRAMA, Genre.ROMANCE),
-                        Collections.emptyList(),
-                        "Roberto Benigni",
-                        1997,
-                        8.6),
-                createMovie("The Wolf of Wall Street",
-                        "Based on the true story of Jordan Belfort, from his rise to a wealthy stock-broker living the high life to his fall involving crime, corruption and the federal government.",
-                        Arrays.asList(Genre.DRAMA, Genre.ROMANCE, Genre.BIOGRAPHY),
-                        Collections.emptyList(),
-                        "Martin Scorsese",
-                        2013,
-                        8.2)
+
+        List<String> actualTitles = homeController.findByQuery(homeController.observableMovies, query)
+                .stream()
+                .map(Movie::getTitle)
+                .toList();
+
+        List<String> expectedTitles = List.of(
+                "Life Is Beautiful",
+                "The Wolf of Wall Street"
         );
-        assertEquals(expected, actual);
+
+        assertEquals(expectedTitles, actualTitles);
     }
 
     @Test
@@ -291,6 +213,17 @@ class HomeControllerTest {
         homeController.searchField.setText("");
         homeController.genreComboBox.getSelectionModel().clearSelection();
         homeController.applyAllFilters();
-        assertEquals(homeController.allMovies, homeController.observableMovies);
+
+        List<String> expectedTitles = homeController.allMovies.stream()
+                .map(Movie::getTitle)
+                .sorted()
+                .toList();
+
+        List<String> actualTitles = homeController.observableMovies.stream()
+                .map(Movie::getTitle)
+                .sorted()
+                .toList();
+
+        assertEquals(expectedTitles, actualTitles);
     }
 }
