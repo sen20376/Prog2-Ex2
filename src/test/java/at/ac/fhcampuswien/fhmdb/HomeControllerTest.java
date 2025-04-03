@@ -33,13 +33,13 @@ class HomeControllerTest {
     private Movie createMovie(String title, String description, List<Genre> genres,
                               List<String> mainCast, String director, int releaseYear, double rating) {
         Movie m = new Movie();
-        m.title = title;
-        m.description = description;
-        m.genres = genres;
-        m.mainCast = mainCast;
-        m.director = director;
-        m.releaseYear = releaseYear;
-        m.rating = rating;
+        m.setTitle(title);
+        m.setDescription(description);
+        m.setGenres(genres);
+        m.setMainCast(mainCast);
+        m.setDirector(director);
+        m.setReleaseYear(releaseYear);
+        m.setRating(rating);
         return m;
     }
 
