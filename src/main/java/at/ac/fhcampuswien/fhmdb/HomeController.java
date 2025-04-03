@@ -87,7 +87,7 @@ public class HomeController implements Initializable {
         // Dynamisch generierte Liste der Erscheinungsjahre (von aktuellem Jahr bis 2000)
         int currentYear = Year.now().getValue();
         List<Integer> years = new ArrayList<>();
-        for (int year = currentYear; year >= 2000; year--) {
+        for (int year = currentYear; year >= 1990; year--) {
             years.add(year);
         }
         releaseYearComboBox.getItems().addAll(years);

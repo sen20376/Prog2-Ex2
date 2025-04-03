@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class MovieService {
 
-    public String getMostPopularActor(List<Movie> movies) {
+    public static String getMostPopularActor(List<Movie> movies) {
         return movies.stream()
                 .flatMap(movie -> movie.getMainCast().stream())
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
@@ -20,7 +20,7 @@ public class MovieService {
                 .orElse("Unknown");
     }
 
-    public String getLongestMovieTitle(List<Movie> movies) {
+    public static String getLongestMovieTitle(List<Movie> movies) {
         return movies.stream()
                 .map(Movie::getTitle)
                 .max(Comparator.comparingInt(String::length))
@@ -28,13 +28,13 @@ public class MovieService {
                 .orElse("No movies available");
     }
 
-    public long countMoviesFrom(List<Movie> movies, String director) {
+    public static long countMoviesFrom(List<Movie> movies, String director) {
         return movies.stream()
                 .filter(movie -> movie.getDirector().equalsIgnoreCase(director))
                 .count();
     }
 
-    public List<Movie> getMoviesBetweenYears(List<Movie> movies, int startYear, int endYear) {
+    public static List<Movie> getMoviesBetweenYears(List<Movie> movies, int startYear, int endYear) {
         return movies.stream()
                 .filter(movie -> movie.getReleaseYear() >= startYear && movie.getReleaseYear() <= endYear)
                 .collect(Collectors.toList());

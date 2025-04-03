@@ -231,7 +231,7 @@ class HomeControllerTest {
 
     //Neu TEst zu den 4 neuen funktionen mit streams sind das hier die test
     @Test
-    void getMostPopularActor_returnsMostFrequentActor() {
+    void returns_Most_FrequentActor() {
         List<Movie> movies = Arrays.asList(
                 createMovie("Movie 1", "", Collections.emptyList(), Arrays.asList("Actor A", "Actor B"), "Director X", 2000, 7.0),
                 createMovie("Movie 2", "", Collections.emptyList(), Arrays.asList("Actor A", "Actor C"), "Director Y", 2001, 8.0),
@@ -243,7 +243,7 @@ class HomeControllerTest {
     }
 
     @Test
-    void getLongestMovieTitle_returnsCorrectTitleWithCharacterCount() {
+    void returns_Correct_Title_With_Character_Count() {
         List<Movie> movies = Arrays.asList(
                 createMovie("Short", "", Collections.emptyList(), Collections.emptyList(), "Director", 2000, 7.0),
                 createMovie("This Is A Really Long Movie Title", "", Collections.emptyList(), Collections.emptyList(), "Director", 2001, 7.5),
@@ -255,7 +255,7 @@ class HomeControllerTest {
     }
 
     @Test
-    void countMoviesFrom_returnsCorrectCountForGivenDirector() {
+    void returns_Correct_Count_For_Given_Director() {
         List<Movie> movies = Arrays.asList(
                 createMovie("Movie 1", "", Collections.emptyList(), Collections.emptyList(), "Nolan", 2000, 7.0),
                 createMovie("Movie 2", "", Collections.emptyList(), Collections.emptyList(), "Spielberg", 2001, 7.5),
@@ -267,7 +267,7 @@ class HomeControllerTest {
     }
 
     @Test
-    void getMoviesBetweenYears_returnsMoviesInGivenRange() {
+    void returns_Movies_In_Given_Range() {
         List<Movie> movies = Arrays.asList(
                 createMovie("Old Movie", "", Collections.emptyList(), Collections.emptyList(), "Director", 1995, 7.0),
                 createMovie("Movie 2000", "", Collections.emptyList(), Collections.emptyList(), "Director", 2000, 7.5),
